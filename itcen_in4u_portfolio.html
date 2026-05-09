@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>조혜리 포트폴리오 | 데이터 플랫폼 엔지니어</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2d7af6;
+            --primary-light: #5b9bf8;
+            --primary-bg: #eef4ff;
+            --accent: #00c9a7;
+            --accent-light: #b2f5ea;
+            --purple: #8b5cf6;
+            --purple-light: #ede9fe;
+            --orange: #f59e0b;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --bg-dark: #0f172a;
+            --bg-dark-card: #1e293b;
+            --text-dark: #1e293b;
+            --text-mid: #475569;
+            --text-light: #94a3b8;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+            --shadow-lg: 0 20px 40px -12px rgba(0,0,0,0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+            background: var(--bg-white);
+        }
+
+        /* ====== ANIMATIONS ====== */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-left { opacity: 0; transform: translateX(-60px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-left.active { opacity: 1; transform: translateX(0); }
+        .reveal-right { opacity: 0; transform: translateX(60px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-right.active { opacity: 1; transform: translateX(0); }
+        .reveal-scale { opacity: 0; transform: scale(0.9); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-scale.active { opacity: 1; transform: scale(1); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+
+        /* ====== NAVIGATION ====== */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(255,255,255,0.9); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border); padding: 16px 0; transition: all 0.3s;
+        }
+        .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { font-size: 1.1rem; font-weight: 700; color: var(--primary); }
+        .nav-links { display: flex; gap: 28px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text-mid); font-size: 0.85rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* ====== HERO ====== */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 50%, #f0fdfa 100%);
+            position: relative; overflow: hidden; padding-top: 80px;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: -20%; right: -10%;
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, rgba(45,122,246,0.08) 0%, transparent 70%);
+            border-radius: 50%; animation: float 8s ease-in-out infinite;
+        }
+        .hero::after {
+            content: ''; position: absolute; bottom: -20%; left: -10%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%);
+            border-radius: 50%; animation: float 10s ease-in-out infinite reverse;
+        }
+        @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(20px, -30px); } }
+
+        .hero-inner {
+            max-width: 1100px; margin: 0 auto; padding: 0 40px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+            align-items: center; position: relative; z-index: 1;
+        }
+        .hero-text .badge {
+            display: inline-block; background: var(--primary-bg); color: var(--primary);
+            padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 20px;
+        }
+        .hero-text h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.2; margin-bottom: 12px; color: var(--text-dark); }
+        .hero-text h1 span { background: linear-gradient(135deg, var(--primary), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-text .subtitle { font-size: 1.15rem; color: var(--text-mid); margin-bottom: 24px; font-weight: 400; }
+        .hero-text .intro-desc { font-size: 0.92rem; color: var(--text-mid); line-height: 1.9; margin-bottom: 28px; }
+        .hero-contact { display: flex; flex-wrap: wrap; gap: 12px; }
+        .hero-contact .contact-chip { display: flex; align-items: center; gap: 8px; background: var(--bg-white); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; font-size: 0.82rem; color: var(--text-mid); box-shadow: var(--shadow); }
+        .hero-contact .contact-chip i { color: var(--primary); font-size: 0.9rem; }
+
+        /* Hero Visual */
+        .hero-visual { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+        .profile-photo-wrapper { position: relative; width: 200px; height: 200px; }
+        .profile-photo-wrapper::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--purple), var(--accent)); z-index: 0; }
+        .profile-photo { position: relative; width: 200px; height: 200px; border-radius: 50%; object-fit: cover; object-position: top center; border: 4px solid var(--bg-white); z-index: 1; box-shadow: var(--shadow-lg); }
+        .stat-card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: 100%; }
+        .stat-card { background: var(--bg-white); border-radius: 16px; padding: 18px; box-shadow: var(--shadow-lg); border: 1px solid var(--border); text-align: center; transition: transform 0.3s, box-shadow 0.3s; }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); }
+        .stat-card .stat-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-size: 1.1rem; }
+        .stat-card .stat-value { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); }
+        .stat-card .stat-label { font-size: 0.68rem; color: var(--text-light); margin-top: 4px; font-weight: 500; }
+
+        /* ====== SECTION COMMON ====== */
+        .section { padding: 100px 0; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .label { display: inline-block; background: var(--primary-bg); color: var(--primary); padding: 6px 16px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .section-header h2 { font-size: 2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 12px; }
+        .section-header p { font-size: 0.95rem; color: var(--text-mid); max-width: 600px; margin: 0 auto; }
+
+        /* ====== TARGET COMPANY ====== */
+        .target-section { background: linear-gradient(135deg, var(--bg-dark) 0%, #1a2744 100%); color: #fff; position: relative; overflow: hidden; }
+        .target-section::before { content: ''; position: absolute; top: -50%; right: -20%; width: 800px; height: 800px; background: radial-gradient(circle, rgba(45,122,246,0.15) 0%, transparent 60%); border-radius: 50%; }
+        .target-section .section-header .label { background: rgba(45,122,246,0.2); color: var(--primary-light); }
+        .target-section .section-header h2 { color: #fff; }
+        .target-section .section-header p { color: rgba(255,255,255,0.7); }
+        .target-content { position: relative; z-index: 1; }
+        .target-intro { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 32px; margin-bottom: 40px; font-size: 0.92rem; color: rgba(255,255,255,0.85); line-height: 2; }
+        .fit-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .fit-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 24px; transition: all 0.3s; }
+        .fit-card:hover { background: rgba(255,255,255,0.08); border-color: rgba(45,122,246,0.4); transform: translateY(-2px); }
+        .fit-card .fit-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(45,122,246,0.2); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; font-size: 1.1rem; color: var(--primary-light); }
+        .fit-card .fit-label { font-size: 0.72rem; color: var(--primary-light); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+        .fit-card .fit-title { font-size: 0.95rem; color: #fff; font-weight: 600; margin-bottom: 8px; }
+        .fit-card .fit-desc { font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.7; }
+
+        /* ====== SKILLS ====== */
+        .skills-section { background: var(--bg-light); }
+        .skills-visual { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+        .skill-bars-container { background: var(--bg-white); border-radius: 16px; padding: 32px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .skill-bars-container h3 { font-size: 1rem; font-weight: 700; margin-bottom: 24px; color: var(--text-dark); display: flex; align-items: center; gap: 8px; }
+        .skill-bars-container h3 i { color: var(--primary); }
+        .skill-bar-item { margin-bottom: 18px; }
+        .skill-bar-item:last-child { margin-bottom: 0; }
+        .skill-bar-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+        .skill-bar-header .name { font-size: 0.82rem; font-weight: 600; color: var(--text-dark); }
+        .skill-bar-header .level { font-size: 0.72rem; color: var(--text-light); font-weight: 500; }
+        .skill-bar-track { width: 100%; height: 8px; background: var(--bg-light); border-radius: 10px; overflow: hidden; }
+        .skill-bar-fill { height: 100%; border-radius: 10px; width: 0%; transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .skill-bar-fill.blue { background: linear-gradient(90deg, var(--primary), var(--primary-light)); }
+        .skill-bar-fill.green { background: linear-gradient(90deg, var(--accent), #34d399); }
+        .skill-bar-fill.purple { background: linear-gradient(90deg, var(--purple), #a78bfa); }
+        .skill-bar-fill.orange { background: linear-gradient(90deg, var(--orange), #fbbf24); }
+        .skill-bar-item.active .skill-bar-fill { width: var(--fill-width); }
+
+        .skill-tags-section { display: flex; flex-direction: column; gap: 20px; }
+        .skill-tag-group { background: var(--bg-white); border-radius: 16px; padding: 24px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .skill-tag-group h4 { font-size: 0.82rem; font-weight: 700; color: var(--text-dark); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+        .skill-tag-group h4 .dot { width: 8px; height: 8px; border-radius: 50%; }
+        .tags-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { padding: 6px 14px; border-radius: 8px; font-size: 0.78rem; font-weight: 500; border: 1px solid; transition: all 0.3s; }
+        .tag:hover { transform: translateY(-2px); }
+        .tag-blue { background: #eef4ff; border-color: #c7dbfe; color: var(--primary); }
+        .tag-green { background: #ecfdf5; border-color: #a7f3d0; color: #059669; }
+        .tag-purple { background: #f5f3ff; border-color: #ddd6fe; color: var(--purple); }
+        .tag-orange { background: #fffbeb; border-color: #fde68a; color: #d97706; }
+        .tag-highlight { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: 600; }
+
+        /* ====== CERTIFICATIONS ====== */
+        .cert-section { background: var(--bg-white); }
+        .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+        .cert-card { background: var(--bg-light); border: 1px solid var(--border); border-radius: 14px; padding: 22px 26px; display: flex; align-items: center; gap: 18px; transition: all 0.3s; }
+        .cert-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+        .cert-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+        .cert-info { flex: 1; }
+        .cert-name { font-size: 0.9rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+        .cert-issuer { font-size: 0.75rem; color: var(--text-light); font-weight: 500; }
+        .cert-date { font-size: 0.72rem; color: var(--primary); font-weight: 700; background: var(--primary-bg); padding: 4px 10px; border-radius: 6px; white-space: nowrap; }
+
+        /* ====== TIMELINE ====== */
+        .timeline-container { position: relative; }
+        .timeline-line { position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--primary), var(--purple), var(--accent)); border-radius: 2px; }
+        .timeline-item { position: relative; padding-left: 64px; margin-bottom: 50px; }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-dot { position: absolute; left: 15px; top: 8px; width: 20px; height: 20px; border-radius: 50%; background: var(--bg-white); border: 3px solid var(--primary); z-index: 2; }
+        .timeline-dot.purple { border-color: var(--purple); }
+        .timeline-card { background: var(--bg-white); border-radius: 16px; padding: 32px; box-shadow: var(--shadow); border: 1px solid var(--border); transition: all 0.3s; }
+        .timeline-card:hover { box-shadow: var(--shadow-lg); border-color: var(--primary); }
+        .timeline-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+        .timeline-company { font-size: 1.2rem; font-weight: 700; color: var(--text-dark); }
+        .timeline-role { font-size: 0.88rem; color: var(--primary); font-weight: 500; margin-top: 4px; }
+        .timeline-period { font-size: 0.78rem; color: var(--text-light); background: var(--bg-light); padding: 6px 14px; border-radius: 20px; font-weight: 600; white-space: nowrap; }
+        .project-block { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+        .project-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .project-title { font-size: 0.95rem; font-weight: 700; color: var(--text-dark); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .project-title .num { width: 26px; height: 26px; border-radius: 8px; background: var(--primary-bg); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
+        .project-title .badge-wip { font-size: 0.68rem; background: linear-gradient(135deg, var(--purple), #a78bfa); color: #fff; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
+        .project-details { padding-left: 36px; }
+        .project-details li { font-size: 0.85rem; color: var(--text-mid); margin-bottom: 8px; line-height: 1.8; position: relative; padding-left: 18px; list-style: none; }
+        .project-details li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--primary); opacity: 0.5; }
+        .process-flow { background: var(--bg-light); border-radius: 12px; padding: 20px; margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; }
+        .flow-step { background: var(--bg-white); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; font-size: 0.72rem; font-weight: 600; color: var(--text-dark); text-align: center; white-space: nowrap; }
+        .flow-step.highlight { background: var(--primary); color: #fff; border-color: var(--primary); }
+        .flow-arrow { color: var(--text-light); font-size: 0.8rem; }
+        .impact-row { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+        .impact-chip { background: linear-gradient(135deg, var(--primary-bg), #f0f4ff); border: 1px solid #c7dbfe; border-radius: 10px; padding: 10px 16px; display: flex; align-items: center; gap: 8px; }
+        .impact-chip .ic-icon { font-size: 1rem; color: var(--primary); }
+        .impact-chip .ic-text { font-size: 0.75rem; color: var(--text-mid); font-weight: 500; }
+        .impact-chip .ic-value { font-size: 0.85rem; font-weight: 700; color: var(--primary); }
+
+        /* ====== POSITION FIT ====== */
+        .fit-summary-section { background: var(--bg-light); }
+        .fit-summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .fit-summary-card { background: var(--bg-white); border-radius: 16px; padding: 28px; border: 1px solid var(--border); box-shadow: var(--shadow); transition: all 0.3s; position: relative; overflow: hidden; }
+        .fit-summary-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--purple)); opacity: 0; transition: opacity 0.3s; }
+        .fit-summary-card:hover::before { opacity: 1; }
+        .fit-summary-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+        .fit-summary-card .fs-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 14px; }
+        .fit-summary-card .fs-title { font-size: 0.92rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+        .fit-summary-card .fs-desc { font-size: 0.82rem; color: var(--text-mid); line-height: 1.8; }
+
+        /* ====== FOOTER ====== */
+        .footer { background: var(--bg-dark); padding: 50px 0; text-align: center; }
+        .footer p { color: rgba(255,255,255,0.5); font-size: 0.82rem; }
+        .footer .footer-name { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+        .footer .footer-target { color: var(--primary-light); font-size: 0.85rem; margin-bottom: 16px; }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 900px) {
+            .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+            .hero-text h1 { font-size: 2.2rem; }
+            .skills-visual { grid-template-columns: 1fr; }
+            .fit-cards { grid-template-columns: 1fr; }
+            .fit-summary-grid { grid-template-columns: 1fr; }
+            .cert-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            .container { padding: 0 20px; }
+            .hero { padding-top: 100px; }
+            .hero-text h1 { font-size: 1.8rem; }
+            .section { padding: 60px 0; }
+            .nav-links { display: none; }
+            .timeline-item { padding-left: 48px; }
+            .timeline-line { left: 16px; }
+            .timeline-dot { left: 7px; }
+            .process-flow { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+            .profile-photo-wrapper { width: 160px; height: 160px; }
+            .profile-photo { width: 160px; height: 160px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <div class="nav-logo">JO HYERI</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#target">지원동기</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#certs">자격증</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#fit">적합성</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="about">
+        <div class="hero-inner">
+            <div class="hero-text">
+                <div class="badge reveal">아이티센인포유 · 데이터 플랫폼 엔지니어 지원</div>
+                <h1 class="reveal delay-1">데이터를 설계하고<br><span>플랫폼으로 완성</span>합니다</h1>
+                <p class="subtitle reveal delay-2">조혜리 · Data Platform Engineer</p>
+                <p class="intro-desc reveal delay-3">
+                    클라우드 기반 대용량 데이터 처리·적재 경험과 파이프라인 자동화 역량을 갖춘 데이터 엔지니어입니다.
+                    BigQuery, Snowflake, Databricks 등 멀티 클라우드 환경에서 데이터 품질 관리부터 셀프서비스 환경 구축까지
+                    End-to-End 데이터 운영을 수행하고 있습니다.
+                </p>
+                <div class="hero-contact reveal delay-4">
+                    <div class="contact-chip"><i class="fas fa-envelope"></i> hyeri.cho.data@gmail.com</div>
+                    <div class="contact-chip"><i class="fas fa-map-marker-alt"></i> 서울</div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="profile-photo-wrapper reveal-scale">
+ <img src="https://drive.google.com/thumbnail?id=1Zax_LtIidj71poa4NbmLPdwHLQwXGZi7&sz=w300" 
+     alt="조혜리 프로필 사진" 
+     class="profile-photo"
+     referrerpolicy="no-referrer">
+
+                </div>
+                <div class="stat-card-grid">
+                    <div class="stat-card reveal-scale delay-1">
+                        <div class="stat-icon" style="background: var(--primary-bg);"><i class="fas fa-database" style="color: var(--primary);"></i></div>
+                        <div class="stat-value">2+</div>
+                        <div class="stat-label">데이터 엔지니어링 경력(년)</div>
+                    </div>
+                    <div class="stat-card reveal-scale delay-2">
+                        <div class="stat-icon" style="background: var(--purple-light);"><i class="fas fa-cloud" style="color: var(--purple);"></i></div>
+                        <div class="stat-value">5+</div>
+                        <div class="stat-label">클라우드 플랫폼 경험 수</div>
+                    </div>
+                    <div class="stat-card reveal-scale delay-3">
+                        <div class="stat-icon" style="background: var(--accent-light);"><i class="fas fa-cogs" style="color: var(--accent);"></i></div>
+                        <div class="stat-value">10+</div>
+                        <div class="stat-label">자동화 쿼리 재활용 케이스</div>
+                    </div>
+                    <div class="stat-card reveal-scale delay-4">
+                        <div class="stat-icon" style="background: #fef3c7;"><i class="fas fa-certificate" style="color: var(--orange);"></i></div>
+                        <div class="stat-value">5</div>
+                        <div class="stat-label">보유 자격증</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Company -->
+    <section class="section target-section" id="target">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="label">Why IN4U</div>
+                <h2>아이티센인포유 × 데이터 플랫폼 엔지니어</h2>
+                <p>멀티 클라우드 기반 Data & AI 전문 기업에서 데이터의 가치를 극대화하고 싶습니다</p>
+            </div>
+            <div class="target-content">
+                <div class="target-intro reveal delay-1">
+                    아이티센인포유가 Microsoft, Databricks, Snowflake 파트너십을 기반으로 멀티 클라우드 데이터 플랫폼을 구축하며 기업의 AX 전환을 선도하고 있다는 점에 깊이 공감합니다.
+                    현재 BigQuery와 Snowflake 기반의 데이터 적재·처리 업무를 수행하며, Python과 SQL을 활용한 파이프라인 개발 및 데이터 품질 자동화 시스템을 직접 설계하고 있습니다.
+                    대용량 데이터를 목적에 맞게 설계·적재하고, 반복 업무를 자동화하여 데이터 운영 효율을 높여온 경험이 이 포지션에 기여할 수 있다고 확신합니다.
+                </div>
+                <div class="fit-cards">
+                    <div class="fit-card reveal delay-1">
+                        <div class="fit-icon"><i class="fas fa-cloud"></i></div>
+                        <div class="fit-label">직무 요구사항</div>
+                        <div class="fit-title">퍼블릭 클라우드 환경 대용량 데이터 설계/적재</div>
+                        <div class="fit-desc">BigQuery·AWS Redshift·Snowflake 기반 대용량 데이터 처리 및 마트 테이블 설계 실무 경험</div>
+                    </div>
+                    <div class="fit-card reveal delay-2">
+                        <div class="fit-icon"><i class="fas fa-snowflake"></i></div>
+                        <div class="fit-label">우대사항 매칭</div>
+                        <div class="fit-title">Databricks, Snowflake 경험자</div>
+                        <div class="fit-desc">Snowflake 현재 실무 사용 중, Databricks·Fabric 환경 경험 보유</div>
+                    </div>
+                    <div class="fit-card reveal delay-3">
+                        <div class="fit-icon"><i class="fas fa-code"></i></div>
+                        <div class="fit-label">자격요건</div>
+                        <div class="fit-title">Python, SQL 기본</div>
+                        <div class="fit-desc">BigQuery SQL 주력 사용, Python 기반 자동화 시스템 설계 및 API 연동 개발 수행</div>
+                    </div>
+                    <div class="fit-card reveal delay-4">
+                        <div class="fit-icon"><i class="fas fa-robot"></i></div>
+                        <div class="fit-label">우대사항 매칭</div>
+                        <div class="fit-title">AI/ML 유경험자</div>
+                        <div class="fit-desc">Gemini AI 에이전트 기반 데이터 운영 자동화, 선형회귀 예측 모델 개발 경험</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="section skills-section" id="skills">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="label">Tech Stack</div>
+                <h2>Skills & Tools</h2>
+                <p>멀티 클라우드 환경에서 데이터 적재·처리·자동화를 수행하는 기술 스택</p>
+            </div>
+            <div class="skills-visual">
+                <div class="reveal-left">
+                    <div class="skill-bars-container">
+                        <h3><i class="fas fa-chart-bar"></i> Core Competencies</h3>
+                        <div class="skill-bar-item" style="--fill-width: 92%;">
+                            <div class="skill-bar-header"><span class="name">SQL (BigQuery / Snowflake)</span><span class="level">주력</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill blue"></div></div>
+                        </div>
+                        <div class="skill-bar-item" style="--fill-width: 80%;">
+                            <div class="skill-bar-header"><span class="name">Python (Pandas, API)</span><span class="level">실무 활용</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill green"></div></div>
+                        </div>
+                        <div class="skill-bar-item" style="--fill-width: 75%;">
+                            <div class="skill-bar-header"><span class="name">데이터 파이프라인 & 자동화</span><span class="level">실무 활용</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill orange"></div></div>
+                        </div>
+                        <div class="skill-bar-item" style="--fill-width: 72%;">
+                            <div class="skill-bar-header"><span class="name">AI/ML (Agent, 예측모델)</span><span class="level">실무 활용</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill purple"></div></div>
+                        </div>
+                        <div class="skill-bar-item" style="--fill-width: 68%;">
+                            <div class="skill-bar-header"><span class="name">데이터 시각화 (Tableau, BI)</span><span class="level">경험</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill blue"></div></div>
+                        </div>
+                        <div class="skill-bar-item" style="--fill-width: 65%;">
+                            <div class="skill-bar-header"><span class="name">Cloud Platform (GCP/AWS/Snowflake)</span><span class="level">경험</span></div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill purple"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-tags-section reveal-right">
+                    <div class="skill-tag-group">
+                        <h4><span class="dot" style="background: var(--primary);"></span>Data Warehouse / Lake</h4>
+                        <div class="tags-wrap">
+                            <span class="tag tag-highlight">BigQuery</span>
+                            <span class="tag tag-highlight">Snowflake</span>
+                            <span class="tag tag-blue">Databricks</span>
+                            <span class="tag tag-blue">AWS Redshift</span>
+                            <span class="tag tag-blue">AWS S3</span>
+                        </div>
+                    </div>
+                    <div class="skill-tag-group">
+                        <h4><span class="dot" style="background: var(--accent);"></span>SQL / Database</h4>
+                        <div class="tags-wrap">
+                            <span class="tag tag-highlight">BigQuery SQL</span>
+                            <span class="tag tag-green">PostgreSQL</span>
+                            <span class="tag tag-green">MySQL</span>
+                            <span class="tag tag-green">Oracle</span>
+                            <span class="tag tag-green">Snowflake SQL</span>
+                        </div>
+                    </div>
+                    <div class="skill-tag-group">
+                        <h4><span class="dot" style="background: var(--purple);"></span>Programming & Automation</h4>
+                        <div class="tags-wrap">
+                            <span class="tag tag-purple">Python</span>
+                            <span class="tag tag-purple">Pandas</span>
+                            <span class="tag tag-purple">Slack API</span>
+                            <span class="tag tag-purple">Google Drive API</span>
+                            <span class="tag tag-purple">Gemini Agent</span>
+                        </div>
+                    </div>
+                    <div class="skill-tag-group">
+                        <h4><span class="dot" style="background: var(--orange);"></span>Visualization & BI</h4>
+                        <div class="tags-wrap">
+                            <span class="tag tag-orange">Tableau</span>
+                            <span class="tag tag-orange">Folium</span>
+                            <span class="tag tag-orange">Excel 자동화</span>
+                            <span class="tag tag-orange">데이터 시각화</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications -->
+    <section class="section cert-section" id="certs">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="label">Certifications</div>
+                <h2>자격증</h2>
+                <p>데이터 엔지니어링 분야 전문성을 증명하는 공인 자격</p>
+            </div>
+            <div class="cert-grid">
+                <div class="cert-card reveal delay-1">
+                    <div class="cert-icon" style="background: #eef4ff; color: var(--primary);"><i class="fab fa-google"></i></div>
+                    <div class="cert-info"><div class="cert-name">GAC (Google Analytics Certification)</div><div class="cert-issuer">Google</div></div>
+                    <div class="cert-date">2025.07</div>
+                </div>
+                <div class="cert-card reveal delay-2">
+                    <div class="cert-icon" style="background: var(--purple-light); color: var(--purple);"><i class="fas fa-chart-pie"></i></div>
+                    <div class="cert-info"><div class="cert-name">빅데이터분석기사</div><div class="cert-issuer">한국데이터산업진흥원</div></div>
+                    <div class="cert-date">2024.12</div>
+                </div>
+                <div class="cert-card reveal delay-3">
+                    <div class="cert-icon" style="background: var(--accent-light); color: var(--accent);"><i class="fas fa-microchip"></i></div>
+                    <div class="cert-info"><div class="cert-name">정보처리기사</div><div class="cert-issuer">한국산업인력공단</div></div>
+                    <div class="cert-date">2024.09</div>
+                </div>
+                <div class="cert-card reveal delay-4">
+                    <div class="cert-icon" style="background: #eef4ff; color: var(--primary);"><i class="fas fa-database"></i></div>
+                    <div class="cert-info"><div class="cert-name">SQL 개발자 (SQLD)</div><div class="cert-issuer">한국데이터산업진흥원</div></div>
+                    <div class="cert-date">2023.04</div>
+                </div>
+                <div class="cert-card reveal delay-5">
+                    <div class="cert-icon" style="background: #fef3c7; color: var(--orange);"><i class="fas fa-award"></i></div>
+                    <div class="cert-info"><div class="cert-name">데이터분석 준전문가 (ADsP)</div><div class="cert-issuer">한국데이터산업진흥원</div></div>
+                    <div class="cert-date">2022.09</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="section" id="experience">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="label">Experience</div>
+                <h2>경력 및 프로젝트</h2>
+                <p>클라우드 기반 대용량 데이터 설계·적재부터 자동화까지의 실무 여정</p>
+            </div>
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+
+                <!-- 올리브영 -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-header">
+                            <div><div class="timeline-company">올리브영 (계약직)</div><div class="timeline-role">데이터 추출 및 분석 지원</div></div>
+                            <span class="timeline-period">2025.09 ~ 현재</span>
+                        </div>
+                        <div class="project-block">
+                            <div class="project-title"><span class="num">01</span>클라우드 기반 대용량 데이터 추출·처리</div>
+                            <ul class="project-details">
+                                <li>BigQuery 기반 SQL로 매출·쿠폰·결제수단·회원·어필리에이트 등 전 도메인 대용량 데이터 추출</li>
+                                <li>분석 목적에 맞는 마트 테이블을 별도 구성하여 반복 조회 성능 개선 및 유관부서 데이터 제공 효율화</li>
+                                <li>온라인(앱/웹)·오프라인(매장) 분리 적재 환경에서 채널 간 데이터 정합성 검증 및 이슈 식별</li>
+                            </ul>
+                            <div class="process-flow">
+                                <span class="flow-step">데이터 요청 접수</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step highlight">BigQuery SQL 추출</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step">마트 테이블 설계</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step">정합성 검증</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step">유관부서 제공</span>
+                            </div>
+                        </div>
+                        <div class="project-block">
+                            <div class="project-title"><span class="num">02</span>데이터 품질 관리 및 이상치 감지 자동화<span class="badge-wip">진행 중</span></div>
+                            <ul class="project-details">
+                                <li>어필리에이트 데이터 수동 모니터링 중 이상값 발견 지연 문제 인식 → 자동화 시스템 직접 설계</li>
+                                <li>BigQuery + Python + Slack API 연동으로 일 평균 대비 이상 회원·상품 자동 감지 및 알림 채널 구현</li>
+                                <li>사후 발견 구조를 사전 감지 구조로 전환 → 데이터 품질 모니터링 체계 구축</li>
+                            </ul>
+                            <div class="process-flow">
+                                <span class="flow-step">BigQuery 데이터</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step highlight">Python 이상치 탐지</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step highlight">Slack 자동 알림</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step">사전 감지 대응</span>
+                            </div>
+                            <div class="impact-row">
+                                <div class="impact-chip"><span class="ic-icon"><i class="fas fa-bolt"></i></span><span class="ic-text">전환 효과</span><span class="ic-value">사후→사전 감지</span></div>
+                                <div class="impact-chip"><span class="ic-icon"><i class="fas fa-clock"></i></span><span class="ic-text">발견 지연</span><span class="ic-value">실시간 알림</span></div>
+                            </div>
+                        </div>
+                        <div class="project-block">
+                            <div class="project-title"><span class="num">03</span>반복 쿼리 구조화 및 데이터 셀프서비스 환경 구축</div>
+                            <ul class="project-details">
+                                <li>반복적으로 들어오는 유사 데이터 요청을 패턴화하여 범용 쿼리 구조로 표준화</li>
+                                <li>기준기간·분석기간·매장코드를 변수로 지정, 변수 교체만으로 즉시 재활용 가능한 쿼리 체계 설계</li>
+                                <li>정기지표 사이트에 탑재하여 담당자가 변수 입력 후 엑셀로 직접 다운로드 가능한 셀프서비스 환경 구성</li>
+                                <li>10건 이상 케이스에 재활용, 리테일 부서 정기 운영 지표로 채택</li>
+                            </ul>
+                            <div class="process-flow">
+                                <span class="flow-step">반복 요청 분석</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step">패턴화·변수화</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step highlight">범용 쿼리 표준화</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step">셀프서비스 탑재</span>
+                            </div>
+                            <div class="impact-row">
+                                <div class="impact-chip"><span class="ic-icon"><i class="fas fa-recycle"></i></span><span class="ic-text">재활용 케이스</span><span class="ic-value">10건+</span></div>
+                                <div class="impact-chip"><span class="ic-icon"><i class="fas fa-check-circle"></i></span><span class="ic-text">성과</span><span class="ic-value">정기 운영 지표 채택</span></div>
+                            </div>
+                        </div>
+                        <div class="project-block">
+                            <div class="project-title"><span class="num">04</span>AI 에이전트 기반 데이터 운영 자동화<span class="badge-wip">진행 중</span></div>
+                            <ul class="project-details">
+                                <li>Gemini 에이전트 + Google Drive 연동으로 과거 쿼리·분석 이력 자동 탐색 및 재활용 체계 구현</li>
+                                <li>신규 데이터 요청 입력 시 유사 요청 자동 탐색 → 기존 쿼리 안내 및 수정 포인트 제안</li>
+                                <li>데이터 요청 대응 시간 단축 및 쿼리 재사용률 향상 목적</li>
+                            </ul>
+                            <div class="process-flow">
+                                <span class="flow-step">신규 요청 입력</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step highlight">Gemini Agent 탐색</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step">유사 쿼리 매칭</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step">수정 포인트 제안</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 선박 데이터 분석 회사 -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot purple"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-header">
+                            <div><div class="timeline-company">선박 데이터 분석 회사</div><div class="timeline-role">데이터 분석가</div></div>
+                            <span class="timeline-period">2023.01 ~ 2024.05</span>
+                        </div>
+                        <div class="project-block">
+                            <div class="project-title"><span class="num">01</span>대용량 데이터 처리 및 파이프라인 경험</div>
+                            <ul class="project-details">
+                                <li>AWS Redshift·S3 기반 8년치 선박 AIS 대용량 데이터 처리, 항해 상태 판단 로직 개발 및 검증 보고서 작성</li>
+                                <li>Python·Pandas 기반 실시간 선박 입출항 이벤트 데이터 처리 로직 개발</li>
+                                <li>실시간·과거 데이터 병행 처리 구조로 항구 혼잡도 파악 체계 구현</li>
+                            </ul>
+                            <div class="process-flow">
+                                <span class="flow-step">AIS 원시데이터</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step highlight">Redshift·S3 적재</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step highlight">Python 처리 로직</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step">혼잡도 분석</span>
+                            </div>
+                            <div class="impact-row">
+                                <div class="impact-chip"><span class="ic-icon"><i class="fas fa-database"></i></span><span class="ic-text">데이터 규모</span><span class="ic-value">8년치 AIS</span></div>
+                                <div class="impact-chip"><span class="ic-icon"><i class="fas fa-server"></i></span><span class="ic-text">인프라</span><span class="ic-value">AWS Redshift + S3</span></div>
+                            </div>
+                        </div>
+                        <div class="project-block">
+                            <div class="project-title"><span class="num">02</span>데이터 분석·시각화 및 예측 모델</div>
+                            <ul class="project-details">
+                                <li>PostgreSQL 기반 선박 통항량 분석 및 Tableau 시각화 보고서 작성</li>
+                                <li>탄소배출(CII) 예측 모델 개발: 상관관계 분석 및 선형회귀 예측 모델 구현</li>
+                                <li>Folium 기반 주소 지도 시각화로 영업 우선순위 결정 지원</li>
+                            </ul>
+                            <div class="process-flow">
+                                <span class="flow-step">PostgreSQL 분석</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step highlight">Tableau 시각화</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step">예측 모델 개발</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+                                <span class="flow-step">의사결정 지원</span>
+                            </div>
+                            <div class="impact-row">
+                                <div class="impact-chip"><span class="ic-icon"><i class="fas fa-brain"></i></span><span class="ic-text">모델</span><span class="ic-value">CII 예측 (선형회귀)</span></div>
+                                <div class="impact-chip"><span class="ic-icon"><i class="fas fa-map"></i></span><span class="ic-text">시각화</span><span class="ic-value">Folium 지도 시각화</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Position Fit Summary -->
+    <section class="section fit-summary-section" id="fit">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="label">Position Fit</div>
+                <h2>직무 적합성 요약</h2>
+                <p>아이티센인포유 데이터 플랫폼 엔지니어 포지션과의 매칭 포인트</p>
+            </div>
+            <div class="fit-summary-grid">
+                <div class="fit-summary-card reveal delay-1">
+                    <div class="fs-icon" style="background: var(--primary-bg); color: var(--primary);"><i class="fas fa-cloud"></i></div>
+                    <div class="fs-title">멀티 클라우드 데이터 플랫폼 경험</div>
+                    <div class="fs-desc">GCP BigQuery(주력) / AWS Redshift·S3 / Snowflake(현재 사용 중) / Databricks 경험 보유. 다양한 클라우드 환경에서의 데이터 설계·적재·처리 실무 역량을 갖추고 있습니다.</div>
+                </div>
+                <div class="fit-summary-card reveal delay-2">
+                    <div class="fs-icon" style="background: var(--accent-light); color: var(--accent);"><i class="fas fa-layer-group"></i></div>
+                    <div class="fs-title">다양한 SQL 환경 활용</div>
+                    <div class="fs-desc">BigQuery SQL 주력 사용, MySQL, Oracle, Snowflake, Databricks, PostgreSQL 등 다양한 SQL 환경에서의 데이터 조회·적재 경험을 보유하고 있습니다.</div>
+                </div>
+                <div class="fit-summary-card reveal delay-3">
+                    <div class="fs-icon" style="background: var(--purple-light); color: var(--purple);"><i class="fas fa-cubes"></i></div>
+                    <div class="fs-title">대용량 데이터 설계·적재·처리</div>
+                    <div class="fs-desc">매출·회원·어필리에이트 등 전 도메인 대용량 데이터를 마트 테이블로 설계하고, 8년치 AIS 선박 데이터 처리 등 대규모 데이터 적재·처리 경험을 보유합니다.</div>
+                </div>
+                <div class="fit-summary-card reveal delay-4">
+                    <div class="fs-icon" style="background: #fef3c7; color: var(--orange);"><i class="fas fa-robot"></i></div>
+                    <div class="fs-title">Python 파이프라인 & AI 자동화</div>
+                    <div class="fs-desc">Python + API 연동 데이터 품질 모니터링 자동화, 실시간 이벤트 처리 로직 개발, AI 에이전트 기반 데이터 운영 자동화 등 파이프라인 개발 역량을 보유합니다.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-name">조혜리</p>
+            <p class="footer-target">아이티센인포유 · 데이터 플랫폼 엔지니어 지원용 포트폴리오</p>
+            <p>© 2026 Cho Hyeri. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Script -->
+    <script>
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, observerOptions);
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => observer.observe(el));
+
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelectorAll('.skill-bar-item').forEach((bar, i) => {
+                        setTimeout(() => bar.classList.add('active'), i * 150);
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+        document.querySelectorAll('.skill-bars-container').forEach(el => skillObserver.observe(el));
+
+        const nav = document.querySelector('.nav');
+        window.addEventListener('scroll', () => { nav.style.boxShadow = window.scrollY > 100 ? '0 4px 20px rgba(0,0,0,0.08)' : 'none'; });
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => { e.preventDefault(); document.querySelector(link.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+        });
+    </script>
+</body>
+</html>
