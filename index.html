@@ -103,7 +103,6 @@
         .hero-contact { display: flex; flex-wrap: wrap; gap: 12px; }
         .hero-contact .contact-chip { display: flex; align-items: center; gap: 8px; background: var(--bg-white); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; font-size: 0.82rem; color: var(--text-mid); box-shadow: var(--shadow); }
         .hero-contact .contact-chip i { color: var(--primary); font-size: 0.9rem; }
-
         /* Hero Visual */
         .hero-visual { display: flex; flex-direction: column; align-items: center; gap: 24px; }
         .profile-photo-wrapper { position: relative; width: 200px; height: 200px; }
@@ -214,6 +213,7 @@
         .impact-chip .ic-text { font-size: 0.75rem; color: var(--text-mid); font-weight: 500; }
         .impact-chip .ic-value { font-size: 0.85rem; font-weight: 700; color: var(--primary); }
 
+
         /* ====== POSITION FIT ====== */
         .fit-summary-section { background: var(--bg-light); }
         .fit-summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
@@ -261,7 +261,7 @@
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-inner">
-            <div class="nav-logo">CHO HYERI</div>
+            <div class="nav-logo"CHO HYERI</div>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#target">지원동기</a></li>
@@ -594,26 +594,46 @@
                             <div><div class="timeline-company">선박 데이터 분석 회사</div><div class="timeline-role">데이터 분석가</div></div>
                             <span class="timeline-period">2023.01 ~ 2024.05</span>
                         </div>
+<!-- PORT EVENT 프로젝트 - 선박회사 경력 첫 번째 프로젝트로 추가 -->
+<div class="project-block">
+    <div class="project-title"><span class="num">01</span>PORT EVENT — 항만 선박 이벤트 모니터링 서비스</div>
+    <ul class="project-details">
+        <li>항구 내 선박의 출발·대기·도착 이벤트를 실시간으로 정확히 판단하는 모니터링 시스템 개발</li>
+        <li>Python·Pandas 기반 실시간 및 과거 데이터 처리 로직 개발, 대기시간 계산 로직 도입</li>
+        <li>PostgreSQL 데이터베이스 관리 및 항구 혼잡도 파악 체계 구현</li>
+    </ul>
+    <div class="process-flow">
+        <span class="flow-step">AIS 원시 데이터 전처리</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+        <span class="flow-step highlight">이벤트 판단 알고리즘 개발</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+        <span class="flow-step highlight">Python + 스케줄러 ETL 자동화</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+        <span class="flow-step">실시간 모니터링 서비스</span>
+    </div>
+    <div class="impact-row">
+        <div class="impact-chip"><span class="ic-icon"><i class="fas fa-handshake"></i></span><span class="ic-text">신규 고객사</span><span class="ic-value">삼성중공업·삼성전자·부산항터미널·KTNET·해양진흥공사</span></div>
+        <div class="impact-chip"><span class="ic-icon"><i class="fas fa-chart-line"></i></span><span class="ic-text">매출 성과</span><span class="ic-value">10% 이상 증가</span></div>
+    </div>
+</div>
+
+<div class="project-block">
+    <div class="project-title"><span class="num">02</span>대용량 데이터 처리 및 파이프라인 경험</div>
+    <ul class="project-details">
+        <li>AWS Redshift·S3 기반 8년치 선박 AIS 대용량 데이터 처리, 항해 상태 판단 로직 개발 및 검증 보고서 작성</li>
+        <li>Python·Pandas 기반 실시간 선박 입출항 이벤트 데이터 처리 로직 개발</li>
+        <li>실시간·과거 데이터 병행 처리 구조로 항구 혼잡도 파악 체계 구현</li>
+    </ul>
+    <div class="process-flow">
+        <span class="flow-step">AIS 원시데이터</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+        <span class="flow-step highlight">Redshift·S3 적재</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+        <span class="flow-step highlight">Python 처리 로직</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
+        <span class="flow-step">혼잡도 분석</span>
+    </div>
+    <div class="impact-row">
+        <div class="impact-chip"><span class="ic-icon"><i class="fas fa-database"></i></span><span class="ic-text">데이터 규모</span><span class="ic-value">8년치 AIS</span></div>
+        <div class="impact-chip"><span class="ic-icon"><i class="fas fa-server"></i></span><span class="ic-text">인프라</span><span class="ic-value">AWS Redshift + S3</span></div>
+    </div>
+</div>
                         <div class="project-block">
-                            <div class="project-title"><span class="num">01</span>대용량 데이터 처리 및 파이프라인 경험</div>
-                            <ul class="project-details">
-                                <li>AWS Redshift·S3 기반 8년치 선박 AIS 대용량 데이터 처리, 항해 상태 판단 로직 개발 및 검증 보고서 작성</li>
-                                <li>Python·Pandas 기반 실시간 선박 입출항 이벤트 데이터 처리 로직 개발</li>
-                                <li>실시간·과거 데이터 병행 처리 구조로 항구 혼잡도 파악 체계 구현</li>
-                            </ul>
-                            <div class="process-flow">
-                                <span class="flow-step">AIS 원시데이터</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
-                                <span class="flow-step highlight">Redshift·S3 적재</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
-                                <span class="flow-step highlight">Python 처리 로직</span><span class="flow-arrow"><i class="fas fa-arrow-right"></i></span>
-                                <span class="flow-step">혼잡도 분석</span>
-                            </div>
-                            <div class="impact-row">
-                                <div class="impact-chip"><span class="ic-icon"><i class="fas fa-database"></i></span><span class="ic-text">데이터 규모</span><span class="ic-value">8년치 AIS</span></div>
-                                <div class="impact-chip"><span class="ic-icon"><i class="fas fa-server"></i></span><span class="ic-text">인프라</span><span class="ic-value">AWS Redshift + S3</span></div>
-                            </div>
-                        </div>
-                        <div class="project-block">
-                            <div class="project-title"><span class="num">02</span>데이터 분석·시각화 및 예측 모델</div>
+                            <div class="project-title"><span class="num">03</span>데이터 분석·시각화 및 예측 모델</div>
                             <ul class="project-details">
                                 <li>PostgreSQL 기반 선박 통항량 분석 및 Tableau 시각화 보고서 작성</li>
                                 <li>탄소배출(CII) 예측 모델 개발: 상관관계 분석 및 선형회귀 예측 모델 구현</li>
